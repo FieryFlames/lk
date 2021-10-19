@@ -1,0 +1,25 @@
+name: Build LittleKernel for all supported lumias
+on: [push]
+jobs:
+  Build-LittleKernel-All:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: sudo apt install make gcc-arm-none-eabi
+      - name: Check out LumiaLK
+        uses: actions/checkout@v2
+      - run: bash scripts/buildall
+      - name: Upload tesla lk_s.elf
+        uses: actions/upload-artifact@v2
+        with:
+          name: tesla_lk_s.elf
+          path: build-msm8226_tesla/lk_s.elf
+      - name: Upload dempsey lk_s.elf
+        uses: actions/upload-artifact@v2
+        with:
+          name: dempsey_lk_s.elf
+          path: build-msm8226_dempsey/lk_s.elf
+      - name: Upload moneypenny lk_s.elf
+        uses: actions/upload-artifact@v2
+        with:
+          name: moneypenny_lk_s.elf
+          path: build-msm8226_moneypenny/lk_s.elf
